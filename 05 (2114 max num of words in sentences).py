@@ -5,6 +5,7 @@ result = []
 for sentence in sentences:
     spaces = 1                  # počítáme mezery a ne počet slov, proto +1
     for str in sentence:
+        if str == ' ':
             spaces += 1
     result += [spaces]
 

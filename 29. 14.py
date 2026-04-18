@@ -28,7 +28,7 @@ if not strs:
 else:
     longest_prefix = 0
 
-    for i in range(len(strs[0])):
+    for i in range(len(strs[0])): # --> in range len(1st_word)
         for word in strs:
             if i >= len(word) or word[i] != strs[0][i]:
                 break

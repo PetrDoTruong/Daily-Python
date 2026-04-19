@@ -2,52 +2,46 @@
 #s = "()[]{}" #--> true
 #s = "(]" #--> false
 #s = "([)]" #--> false
-s = "([])" #--> true
-
-print(any(["]", "}", ")"]) in s)
+#s = "))" #--> false
+#s = "([])" #--> true
+#s = "]" #--> False
+#s = "((" #--> false
+s = "){" #––> false
 
 def brackets(s):
-    i = 0
-    if len(s) > 2 and any("]", "}", ")") in s:
-        while s:
-            match s[i]:
-                case ')':
-                    if s[i - 1] != '(':
-                        return False
-                    else:
-                        print("odstraňuju ()")
-                        s = s.replace("()", "", 1)
-                        i -= 2
+    while s: #--> if "" not empty
+        if (len(s) % 2 == 0 and
+            any(c in s for c in "])}") and
+            s[0] not in ("])}")): #--> if string is even and there is a closing bracket not on 1st pos.
 
-                case ']':
-                    if s[i - 1] != '[':
-                        return False
-                    else:
-                        print("odstraňuju []")
-                        s = s.replace("[]", "", 1)
-                        i -= 2
-                
-                case '}':
-                    if s[i - 1] != '{':
-                        return False
-                    else:
-                        print("odstraňuju {}")
-                        s = s.replace("{}", "", 1)
-                        i -= 2
-            i += 1
+            for i in range(1, len(s)): #start from second bcs there are only odds and in 1 pair the second is always closing
+                match s[i]:         # if "" == closing bracket --> prev must be opening bracket of same type --> else false
+                    case "}":
+                        print("remove {}")
+                        if s[i - 1] == "{":
+                            s = s.replace("{}", "", 1)
+                            break
+                        else:
+                            return False
 
-        return True
-    else:
-        return False
+                    case "]":
+                        print("remove []")
+                        if s[i - 1] == "[":
+                            s = s.replace("[]", "", 1)
+                            break
+                        else:
+                            return False
 
-#print(brackets(s))
+                    case ")":
+                        print("remove ()")
+                        if s[i - 1] == "(":
+                            s = s.replace("()", "", 1)
+                            break
+                        else:
+                            return False
+        else:
+            return False
 
-"""if len(s) % 2 == 0:
-    while s:
-        s = s.replace("()", "", 1)
-        s = s.replace("{}", "", 1)
-        s = s.replace("[]", "", 1)
-        print(s)
-    print(True)
-else:
-    print(False)"""
+    return True #--> if brackets empty always true
+
+print(brackets(s))
